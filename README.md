@@ -1,1 +1,1 @@
-# RB101
+# RB101 Launch School
