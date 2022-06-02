@@ -2,7 +2,7 @@
 # and returns a new array with every other element from the original array, starting with the first element.
 
 # SET array = an array of integers
-# SET iterator = 1
+# SET iterator = 0
 # SET newarray = the first element in the array (array[0])
 # WHILE iterator < number of elements in the array
 #   iterator = iterator + 1   (I had to move this above next or it kept looping)
