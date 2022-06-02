@@ -5,7 +5,7 @@
 # SET char = given character
 # SET string = string to iterate over
 # SET index = index iterator start at 0
-# SET count = 0
+# SET count = number of times given character occurs
 #
 # WHILE index < number of characters in string AND count < 3
 #   IF string[index] is the same as char
