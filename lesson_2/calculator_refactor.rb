@@ -6,25 +6,30 @@
 # .empty?() can be used to make sure a string was input / not empty
 # %w(1 2 3 4).include?(operator) we used to check operator was in the options array
 
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end 
 
 def valid_number?(num)
-  num.to_i != 0
+  num.to_i.to_s == num
 end   
 
 def operation_to_message(op)
+  word = ""
   case op
     when '1'
-      'Adding'
+      word = 'Adding'
     when '2'
-      'Subtracting'
+      word = 'Subtracting'
     when '3'
-      'Multiplying'
+      word = 'Multiplying'
     when '4'
-      'Dividing'
+      word = 'Dividing'
   end
+  word
 end 
 
 prompt("Welcome to calculator! Enter your name: ")
