@@ -1,59 +1,45 @@
-# Write a method that takes one argument, an array containing integers, and returns the average of all numbers in the array. The array will never be empty and the numbers will always be positive integers. Your result should also be an integer.
+# What's my Bonus?
+# Write a method that takes two arguments, a positive integer and a boolean,
+# and calculates the bonus for a given salary. If the boolean is true,
+# the bonus should be half of the salary. If the boolean is false, the bonus should be 0.
 
 # Examples:
-
-# puts average([1, 6]) == 3 # integer division: (1 + 6) / 2 -> 3
-# puts average([1, 5, 87, 45, 8, 8]) == 25
-# puts average([9, 47, 23, 95, 16, 52]) == 40
+# puts calculate_bonus(2800, true) == 1400
+# puts calculate_bonus(1000, false) == 0
+# puts calculate_bonus(50000, true) == 25000
 
 # PEDAC
 # Problem:
-# - Input: Array object
+# - Input: Integer object and Boolean object  # USE .class to check if this is an object??
 # - Output: Integer object
 # - Rules:
 #   - Explicit:
-#     - method takes one argument 
-#       - Array containing Integers 
-#       - Array is non-empty
-#       - Integers in Array are all positive numbers
-#     - method returns an Integer object
-#       - value is equal to average of all numbers in Input Array
+#     - method takes two arguments 
+#       - positive Integer
+#       - Boolean expression, either true or false
+#     - method returns an Integer object, bonus
+#       - if true, the value is equal to salary / 2
+#       - if false, the value is equal to 0
 #   - Implicit:
-#     - Integers are positive values greater than 0
+#     - Salary is > 0 in all of the examples, so no divide by zero
 #
 # Example:
 #  - Test Case 1:
-#   - Input: [1, 6] 
-#   - Output: 3
-#     - 1 + 6 / 2 -> 3.5 -> Integer -> 3 
+#   - Input: [2800, true] 
+#   - Output: 1400
+#     - 2800 / 2 -> 1400 
 #
 # Data Structures:
 #  
 # Algorithm and Code:
-# create a method named average
-# takes one argument, an Array Object
-def average(arr)
-  # return a Integer Object
-  result = nil
+# create a method named calculate_bonus
+# takes two arguments, an Integer Object and a Boolean expression
 
-  # create a variable to keep track of the sum
-  sum = 0
+def calculate_bonus(salary, approval)
+  approval ? salary / 2 : 0
+end 
 
-  # iterate through arr 
-  # access each element value
-  # add the value of each element to sum
-  arr.each do |num|
-    sum += num
-  end
-
-  # divide sum by the number of elements in arr
-  num_of_elements = arr.size
-  result = sum / num_of_elements
-
-  # return value 
-  result
-end
-
-puts average([1, 6]) == 3 # integer division: (1 + 6) / 2 -> 3
-puts average([1, 5, 87, 45, 8, 8]) == 25
-puts average([9, 47, 23, 95, 16, 52]) == 40
+# Examples:
+puts calculate_bonus(2800, true) == 1400
+puts calculate_bonus(1000, false) == 0
+puts calculate_bonus(50000, true) == 25000
