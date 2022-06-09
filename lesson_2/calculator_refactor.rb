@@ -32,7 +32,7 @@ def operation_to_message(op)
   word
 end 
 
-prompt("Welcome to calculator! Enter your name: ")
+prompt(MESSAGES['welcome'])
 
 name = ""
 
@@ -40,7 +40,7 @@ loop do
   name = Kernel.gets().chomp()
   
   if name.empty?()
-    prompt("Make sure to use a valid name!")
+    prompt(MESSAGES['valid_name'])
   else
     break
   end
@@ -70,18 +70,10 @@ loop do  # main loop
       break
     else
       prompt("Hmm... that's not a valid number.")
-    end 
-  end 
+    end
+  end
   
-  operator_prompt = <<-MSG
-    What operation would you like to perform?
-    1) add
-    2) subtract
-    3) multiply
-    4) divide
-  MSG
-  
-  prompt(operator_prompt)
+  prompt(MESSAGES['operator_prompt'])
   
   operator = ""
   loop do
