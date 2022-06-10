@@ -10,7 +10,6 @@ def messages(message, language = 'en')
   MESSAGES[language][message]
 end
 
-
 def valid_number?(num)
   num.to_i.to_s == num || num.to_f.to_s == num
 end
@@ -43,11 +42,11 @@ end
 
 def get_monthly_apr
   loop do
-        print messages('apr', LANGUAGE)
+    print messages('apr', LANGUAGE)
     monthly_apr = gets.chomp
 
     if valid_number?(monthly_apr)
-      return monthly_apr.to_f
+      monthly_apr.to_f
     else
       puts "Hmm... that's not a valid number."
     end
@@ -80,8 +79,7 @@ loop do # main loop
   monthly_apr = get_monthly_apr
   duration = get_loan_duration
 
-# if APR = 0, simply calculate total loan divided by months
-  if monthly_apr == 0
+  if monthly_apr == 0 # edge case of 0% APR
     payment = loan / duration
   else
     payment = payment_calc(loan, monthly_apr, duration)
@@ -89,15 +87,15 @@ loop do # main loop
 
   total_payments = format("%.2f", payment * duration)
   total_interest = format("%.2f", (payment * duration) - loan)
-  
+
   if duration == 0
     payment = loan
     duration = 1
     total_interest = 0
     total_payments = loan
   end
-  
-  puts "\n" + "=> Payment Every Month   $#{format("%.2f", payment)}"
+
+  puts "\n" + "=> Payment Every Month   $#{format('%.2f', payment)}"
   puts "=> Total of #{duration} Payments   $#{total_payments}"
   puts "=> Total Interest   $#{total_interest}"
   puts "" # blank line before requesting input
@@ -109,4 +107,4 @@ loop do # main loop
   break unless answer.downcase() == "y" || answer.downcase() == "yes"
 end
 
-  puts messages('goodbye', LANGUAGE)
+puts messages('goodbye', LANGUAGE)
