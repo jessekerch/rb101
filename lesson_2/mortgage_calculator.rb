@@ -1,81 +1,105 @@
+# Jesse Kercheval
+# June 9, 2022
 # Lesson 2 mortgage calculator
+# Refactored several times to improve!
 
-# m = p * (j / (1 - (1 + j)**(-n)))
-# p = loan amount
-# n = loan duration in months
-# j = monthly interest rate
-# m = monthly payment
-
-def prompt(message)
-  puts("=> #{message}")
-end 
-
+#method to validate user input
 def valid_number?(num)
   num.to_i.to_s == num || num.to_f.to_s == num 
-end   
+end
 
-prompt("Welcome to the mortage caclulator! Enter your name: ")
-
-name = ""
-
-loop do
-  name = gets.chomp
-  
-  if name.empty?()
-    prompt("Please enter a valid name.")
-  else
-    break
+#method to get and validate user name
+def get_user_name
+  loop do
+    name = gets.chomp
+    
+    if name.empty?()
+      puts "Please enter a valid name."
+    else
+      puts "Hello #{name}."
+      break
+    end
   end
 end
 
-prompt("Hello #{name}!")
-
-loop do  # main loop
-  loan = ""
+#method to get and validate loan amount
+def get_loan_amount
   loop do
-    prompt("Please enter your loan amount: ")
+    print "Please enter your loan amount: "
     loan = gets.chomp
     
-    if valid_number?(loan)
-      break
+    unless valid_number?(loan)
+      puts "Hmm... that's not a valid number."
     else
-      prompt("Hmm... that's not a valid number.")
-    end
-  end 
-  
-  monthly_apr = ""
-  loop do
-    prompt("Please enter your monthly interest rate (APR): ")
-    monthly_apr = gets.chomp
-    
-    if valid_number?(monthly_apr)
-      break
-    else
-      prompt("Hmm... that's not a valid number.")
+      return loan.to_f
     end
   end
-
-  duration = ""
-  loop do
-    prompt("Finally, enter the loan duration, in months: ")
-    duration = gets.chomp
-    
-    if valid_number?(duration)
-      break
-    else
-      prompt("Hmm... that's not a valid number.")
-    end
-  end
-
-  monthly_payment = loan.to_f * (((monthly_apr.to_f / 100) / 12) / (1.0 - (1.0 + ((monthly_apr.to_f / 100) / 12))**(-duration.to_f)))
-
-  prompt("Your monthly payment will be: $#{monthly_payment.round(2)}")
-  puts ""
-  
-  prompt("Would you like to perform another calculation? (Y to calculate again)")
-  answer = gets.chomp
-  break unless answer.downcase().start_with?("y")
 end 
 
-prompt("Thank you for using mortgage calculator. Goodbye!")
- 
+#method to gather and validate monthly apr
+def get_monthly_apr
+  loop do
+    print "Please enter your monthly interest rate (APR): "
+    monthly_apr = gets.chomp
+    
+    unless valid_number?(monthly_apr)
+      puts "Hmm... that's not a valid number."
+    else
+      return monthly_apr.to_f
+    end
+  end
+end
+
+#method to gather and validate loan duration
+def get_loan_duration
+  loop do
+    print "Finally, enter the loan duration, in months: "
+    duration = gets.chomp
+    
+    unless valid_number?(duration)
+      puts "Hmm... that's not a valid number."
+    else
+      return duration.to_i
+    end
+  end
+end
+
+# method to calculate loan payment with three inputs
+def payment_calc(loan, apr, duration)
+   monthly_percent = (apr.to_f / 100) / 12
+   loan * (monthly_percent / (1 - (1 + monthly_percent)**(-duration)))
+end
+
+print "Welcome to the mortage caclulator! Enter your name: "
+get_user_name  # method to gather and validate user name
+
+loop do  # main loop
+  
+  # call method to gather and validate loan amount input
+  loan = get_loan_amount
+
+  # call method to gather and validate monthly apr
+  monthly_apr = get_monthly_apr
+
+  # call method to gather and validate loan duration
+  duration = get_loan_duration
+  
+  # call method to calculate monthly payment
+  payment = payment_calc(loan, monthly_apr, duration)
+  
+  total_payments = format("%.2f", payment * duration)
+  
+  total_interest = format("%.2f", (payment * duration) - loan)
+
+  puts "\n" + "=> Payment Every Month   $#{payment.round(2)}" 
+  puts "=> Total of #{duration} Payments   $#{total_payments}" 
+  puts "=> Total Interest   $#{total_interest}" 
+  puts ""  # blank line before requesting input
+  
+  # Ask user if they'd like to do it again, i.e. back to top of main loop
+  puts "Would you like to perform another calculation? (Y to calculate again)"
+  answer = gets.chomp
+  break unless answer.downcase().start_with?("y")
+end
+
+puts "Thank you for using mortgage calculator. Goodbye!"
