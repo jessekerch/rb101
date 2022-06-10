@@ -73,7 +73,6 @@ def payment_calc(loan, apr, duration)
 end
 
 print messages('welcome', LANGUAGE)
-# "Welcome to the mortage caclulator! Enter your name: "
 get_user_name
 
 loop do # main loop
