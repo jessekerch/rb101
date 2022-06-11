@@ -45,8 +45,8 @@ def get_monthly_apr
     print messages('apr', LANGUAGE)
     monthly_apr = gets.chomp
 
-    if valid_number?(monthly_apr)
-      monthly_apr.to_f
+    if valid_number?(monthly_apr) && monthly_apr.to_f >= 0
+      return monthly_apr.to_f
     else
       puts "Hmm... that's not a valid number."
     end
@@ -58,7 +58,7 @@ def get_loan_duration
     print messages('duration', LANGUAGE)
     duration = gets.chomp
 
-    if valid_number?(duration)
+    if valid_number?(duration) && duration.to_f >= 0
       return duration.to_i
     else
       puts "Hmm... that's not a valid number of months."
@@ -85,6 +85,8 @@ loop do # main loop
     payment = payment_calc(loan, monthly_apr, duration)
   end
 
+p payment
+
   total_payments = format("%.2f", payment * duration)
   total_interest = format("%.2f", (payment * duration) - loan)
 
@@ -96,8 +98,8 @@ loop do # main loop
   end
 
   puts "\n" + "=> Payment Every Month   $#{format('%.2f', payment)}"
-  puts "=> Total of #{duration} Payments   $#{total_payments}"
-  puts "=> Total Interest   $#{total_interest}"
+  puts "=> Total of #{duration} Payments   $#{format('%.2f', total_payments)}"
+  puts "=> Total Interest   $#{format('%.2f', total_interest)}"
   puts "" # blank line before requesting input
 
   # Ask user if they'd like to do it again, i.e. back to top of main loop
