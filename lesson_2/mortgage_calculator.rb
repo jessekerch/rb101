@@ -85,8 +85,6 @@ loop do # main loop
     payment = payment_calc(loan, monthly_apr, duration)
   end
 
-p payment
-
   total_payments = format("%.2f", payment * duration)
   total_interest = format("%.2f", (payment * duration) - loan)
 
